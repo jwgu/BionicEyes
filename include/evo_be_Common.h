@@ -246,9 +246,16 @@ namespace evo_be
          * Creating BinoSense device instances for direct
          * connection use.
          * @brief Creating BinoSense device instances
-         * @example CBionicEyes *device = device->create();
+         * @param openNetworkService:           Set #True# to use network service and support remote connect, or set false to
+         * decrease CPU usage.
+         * @param dataDefaultFrameRate:          Set default frame(including image， motor coder， IMU data, and so on..)
+         * acquisition rate. You can still change it by calling (@see setDataRate). Max accepted value is 200. In some device
+         *  and some image resolution setting, this value may be less than 200
+         * @example CBionicEyes *device = device->create(false, 50);
+         * @note When setting openNetworkService true, you still need to start evo_be_Device_Service_**** program to support
+         * remote user.
          **************************************************/
-		static CBionicEyes *create();
+		static CBionicEyes *create(bool openNetworkService = true, int dataDefaultFrameRate = 25, void *logger_ptr = NULL);
 
         /**************************************************
          * Creating BinoSense device instances for remote connection use. When use this to create instance, all
@@ -266,7 +273,8 @@ namespace evo_be
          **************************************************/
 		static CBionicEyes *create(BE_Connect_Type type,
                                     BE_Connect_DataServerType dataServerType = enumDeviceServer_Only,
-                                    BE_Data_TransmissionType dataTransmissionType = enumDataTransmission_ASPAP);
+                                    BE_Data_TransmissionType dataTransmissionType = enumDataTransmission_ASPAP,
+                                    void *logger_ptr = NULL);
 
         /**************************************************
          * Creating BinoSense device instances for remote connection use. This function will connect device which IP
@@ -285,7 +293,8 @@ namespace evo_be
 		static CBionicEyes *create(string ipAddr,
                                     BE_Connect_Type type = enumdisConnect,
                                     BE_Connect_DataServerType dataServerType = enumDeviceServer_Only,
-                                    BE_Data_TransmissionType dataTransmissionType = enumDataTransmission_ASPAP);
+                                    BE_Data_TransmissionType dataTransmissionType = enumDataTransmission_ASPAP,
+                                    void *logger_ptr = NULL);
 
         /**************************************************
          * destructor
@@ -685,6 +694,9 @@ namespace evo_be
          * @brief Give a trigger signal to data server to send a next data
          **************************************************/
         virtual void triggerDataTransmission() = 0;
+
+        /*! Set grab data rate, Max 200 fps.*/
+        virtual void setBeDataRate(int rate = 25) = 0;
 	};
 
 } // namespace evo_be

@@ -54,7 +54,7 @@ namespace evo_be
 		 * @param  right            Rectified right image
 		 * @param  disp             Disparity image
 		 */
-		virtual void calc(cv::Mat &srcLeft, cv::Mat &srcRight, cv::Mat &dstDisp, cv::Mat &mask) = 0;
+		virtual void calc(const cv::Mat &srcLeft, const cv::Mat &srcRight, cv::Mat &dstDisp, cv::Mat &mask) = 0;
 		/**
 		 * @brief  Set the P1 parameter of SGM
 		 * @param  P1_input         Recommended 10 to 80
@@ -89,6 +89,10 @@ namespace evo_be
 		 * @param  src32FC1         Input disparity map of float type
 		 * @param  dst8UC1          Output disparity map of uchar type
 		 */
+		virtual void calc(const cv::Mat &srcLeft, const cv::Mat &srcRight,
+						  const cv::Matx33d &KLeft, const cv::Matx33d &RRectLeft, const cv::Matx34d &PRectLeft,
+						  const cv::Matx44d &Q, double scale,
+						  cv::Mat &dstXYZ, cv::Mat &mask8UC1) = 0;
 		virtual void disp32fTo8u(cv::Mat &src32FC1, cv::Mat &dst8UC1) = 0;
 		/**
 		 * @brief Convert disparity map (float) to depth map (float) in real-world units

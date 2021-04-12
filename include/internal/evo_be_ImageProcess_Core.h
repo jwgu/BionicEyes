@@ -95,6 +95,11 @@ namespace evo_be
 		cv::Matx33d R_rl, R_r0, R_l0;
 		cv::Matx31d t_rl, t_r0, t_l0;
 	};
+	class EVO_BE_IMAGEPROCESS_CORE_API CBE_Calibration
+	{
+	public:
+		static int countChessboards(cv::Mat img, cv::Size patternSize);
+	};
 
 	class EVO_BE_IMAGEPROCESS_CORE_API CBE_Calibrator
 	{
@@ -176,11 +181,11 @@ namespace evo_be
 		 * @param  QOut             Output disparity-to-depth mapping matrix (see Q of cv::stereoCalibrate)
 		 */
 		virtual void rectifyUndistortRemap(cv::Matx33d R, cv::Matx31d t, double scale,
-										   cv::Mat &srcImageLeft, cv::Mat &srcImageRight,
+										   const cv::Mat &srcImageLeft, const cv::Mat &srcImageRight,
 										   cv::Mat &dstImageLeft, cv::Mat &dstImageRight,
 										   cv::Matx33d &RLeft, cv::Matx34d &PLeft, cv::Matx44d &QOut) const = 0;
 
-		virtual cv::Matx33d invKin_Pix2q(RtStereo srcRt, cv::Vec3d srcPixel, cv::Vec3d dstPixel, evo_be::CameraIndex cam) const = 0;
+		virtual cv::Matx33d invKin_Pix2q(RtStereo srcRt, cv::Vec3d srcPixel, cv::Vec3d dstPixel, double scale, evo_be::CameraIndex cam) const = 0;
 		virtual cv::Vec3d invKin_Rot2q(cv::Matx33d srcR, evo_be::CameraIndex cam) const = 0;
 
 		virtual RtStereo estimateRtFromChessboard(cv::Mat srcStereoImage, cv::Size chessboardSize, float squareSize) const = 0;
