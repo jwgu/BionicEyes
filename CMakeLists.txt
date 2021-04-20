@@ -79,7 +79,7 @@ option(BE_COMPILE_V5                            "Compile BionicEyes device hardw
 #option(BUILD_DOXYGEN_DOCS                      "Build docs"                     OFF)
 #option(BUILD_TESTS                             "Build tests"                    ON)
 #option(BUILD_TOOLS                             "Build tools"                    ON)
-#option(BUILD_SAMPLES                           "Build samples"                  OFF)
+option(BUILD_SAMPLES                           "Build samples"                  ON)
 #option(BUILD_DEV                               "Build modules under develop"    OFF)
 #option(WITH_OPENCL               	       "With OpenCL"                    OFF)
 #option(BUILD_SLAMBASE                          "Build Slam Base Module(Under Test)"    OFF)
@@ -227,6 +227,24 @@ elseif(UNIX)
     endif(EXISTS "${BE_SYSTEM_PATH}/include/")
 
 endif(WIN32)
+
+if(NOT EXISTS "${BE_SYSTEM_PATH}/io_path/")
+    message(STATUS "Bionic IO folder don't exists, creating......")
+    execute_process(COMMAND cmake -E
+            make_directory "${BE_SYSTEM_PATH}/io_path/")
+endif(NOT EXISTS "${BE_SYSTEM_PATH}/io_path/")
+
+if(NOT EXISTS "${BE_SYSTEM_PATH}/log_path/")
+    message(STATUS "Bionic LOG folder don't exists, creating......")
+    execute_process(COMMAND cmake -E
+            make_directory "${BE_SYSTEM_PATH}/log_path/")
+endif(NOT EXISTS "${BE_SYSTEM_PATH}/log_path/")
+
+if(NOT EXISTS "${BE_SYSTEM_PATH}/tmp_path")
+    message(STATUS "Bionic TMP folder don't exists, creating......")
+    execute_process(COMMAND cmake -E
+            make_directory "${BE_SYSTEM_PATH}/tmp_path")
+endif(NOT EXISTS "${BE_SYSTEM_PATH}/tmp_path")
 
 include_directories(${INCLUDE_PATH} ${INTERNAL_INCLUDE_PATH})
 link_directories(${LIB_PATH_BACKUP} ${INTERNAL_LIB_PATH_BACKUP} ${BIN_PATH})
