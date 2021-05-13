@@ -74,7 +74,6 @@ namespace evo_be
 		};
 		DiffPRY(float dp, float dy, float dr, float pdp, float pdy, float pdr) : PitchDiff(dp), YawDiff(dy), RollDiff(pdr), PitchDiffPre(pdp), YawDiffPre(pdy), RollDiffPre(pdr){};
 	};
-
 	/**
 	 * @brief 6D poses of active stereo vision\n
 	 * Rotation 3x3 matrices:
@@ -99,6 +98,21 @@ namespace evo_be
 	{
 	public:
 		static int countChessboards(cv::Mat img, cv::Size patternSize);
+	};
+
+	class EVO_BE_IMAGEPROCESS_CORE_API CBE_Gaze
+	{
+	public:
+		static std::shared_ptr<CBE_Gaze> create();
+		virtual ~CBE_Gaze();
+		// virtual bool gaze(const cv::Mat &imageLeft, const cv::Mat &imageRight,
+		// 				  cv::Mat KLeft, cv::Mat KRight, RtStereo Rt,
+		// 				  cv::Rect &ROILeft, cv::Rect &ROIRight) const = 0;
+		virtual bool gaze(const cv::Mat &imageUndistLeft, const cv::Mat &imageUndistRight,
+						  RtStereo Rt, cv::Rect &ROILeft, cv::Rect &ROIRight) const = 0;
+		virtual void setClickWindow_OPENCV(const std::string &name) = 0;
+		virtual std::vector<cv::Point> getLastClick_OPENCV() const = 0;
+		virtual void setKD(cv::Matx33d KLeft, cv::Matx33d KRight, cv::Matx<double, 5, 1> DLeft, cv::Matx<double, 5, 1> DRight) = 0;
 	};
 
 	class EVO_BE_IMAGEPROCESS_CORE_API CBE_Calibrator

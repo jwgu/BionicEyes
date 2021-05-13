@@ -621,7 +621,7 @@ namespace evo_be
          * Get camera exposure time
          * @brief Get camera exposure time
          **************************************************/
-		virtual float getCameraExposureTime() = 0;
+		virtual float getCameraExposureTime(CameraIndex type) = 0;
 
         /**************************************************
          * Set camera exposure time
@@ -629,7 +629,29 @@ namespace evo_be
          * @param autoExposure: True: set auto exposure mode, False: set manual exposure mode
          * @param exposureTime: set exposure time. Only works when autoExposure = False;
          **************************************************/
-		virtual void setCameraExposure(bool autoExposure, float exposureTime = 0) = 0;
+		virtual void setCameraExposure(CameraIndex type, bool autoExposure, float exposureTime = 0) = 0;
+
+        /**************************************************
+         * Get Camera WhiteBalance Temperature set range
+         * @brief Get Camera WhiteBalance Temperature set range
+         * @param up: return WhiteBalance Temperature up_limit
+         * @param down: return WhiteBalance Temperature down_limit
+         **************************************************/
+        virtual void getCameraWhiteBalanceTemperatureRange(int &up, int &down) = 0;
+
+        /**************************************************
+         * Get Camera WhiteBalance Temperature
+         * @brief Get Camera WhiteBalance Temperature
+         **************************************************/
+        virtual float getCameraWhiteBalanceTemperature(CameraIndex type) = 0;
+
+        /**************************************************
+         * Set Camera WhiteBalance Temperature
+         * @brief Set Camera WhiteBalance Temperature
+         * @param autoWhitebalance: True: set whitebalance temperature mode, False: set manual whitebalance temperature mode
+         * @param WhiteBalanceTemperature: set whitebalance temperature. Only works when autoExposure = False;
+         **************************************************/
+        virtual void setCameraWhiteBalanceTemperature(CameraIndex type, bool autoWhitebalance, float WhiteBalanceTemperature = 6600) = 0;
 
         /**************************************************
          * Get camera exposure auto reference range

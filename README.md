@@ -41,12 +41,12 @@ BinoSense系列产品SDK, 支持的使用模式及使用方法如下.
    `sudo apt-get install build-essential git libgtk2.0-dev libhdf5-dev pkg-config libavcodec-dev libdc1394-22-dev libavformat-dev libswscale-dev libtbb-dev liblapacke-dev libvtk6-dev libatlas-base-dev`
 2) `sudo mkdir /usr/Evo_BionicEyes`
 3) `sudo chmod 777 /usr/Evo_BionicEyes/`
-4) 如果后续需要使用SDK中图像处理相关模块功能,可能需要自行安装配置安装CUDA 10.0和PCL 1.9.1
+4) 如果后续需要使用SDK中图像处理相关模块功能,可能需要自行安装配置安装CUDA 11.1
 
 ### 二、开始：
 1) 进入你的workspace文件路径下,`cd ~/workspace`
 2) `git clone https://github.com/BinoSense/BionicEyes`
-3) 下载dependencies文件夹至BionicEyes目录下
+3) 下载dependencies文件夹(http://binosense.ilooktech.com/downloads/BinoSense_SDK_DEP.zip, 里面有dependencies和resource两个文件）至BionicEyes目录下
 4) `cd ~/workspace/BionicEyes`
 5)  如果拥有核心代码模块权限，可clone相应模块置于src路径下
 6) `mkdir build`
